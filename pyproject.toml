@@ -1,5 +1,5 @@
 [project]
-name = "vinasltnotificationservice"
+name = "notificationservice"
 version = "0.1.0"
 description = ""
 authors = [

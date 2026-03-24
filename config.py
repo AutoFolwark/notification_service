@@ -12,8 +12,8 @@ class Environment(str, Enum):
 class Settings(BaseSettings):
     # Application
     APP_NAME: str = 'notification-service'
-    COMPANY_NAME: str = 'VINAS'
-    COMPANY_LINK: str = 'https://demo.vinas.lt'
+    COMPANY_NAME: str = 'AUTOFOLWARK'
+    COMPANY_LINK: str = 'https://demo.autofolwark.com'
     DEBUG: bool = True
     ROOT_PATH: str = ''
     ENVIRONMENT: Environment = Environment.DEVELOPMENT
@@ -40,7 +40,7 @@ class Settings(BaseSettings):
     TWILIO_MESSAGING_SERVICE_SID: str = 'MG0a97155aaa7c29c8d756809d8c7a774d'
 
     # Email
-    SENDER_EMAIL: str = 'noreplay@vinas.lt'
+    SENDER_EMAIL: str = 'noreplay@autofolwark.com'
     SMPT_SERVER: str = 'smtp.hostinger.com'
     SMPT_PORT: int = 587
     EMAIL_PASSWORD: str = ''
