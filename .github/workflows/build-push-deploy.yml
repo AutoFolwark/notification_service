@@ -9,7 +9,9 @@ on:
 env:
   # Docker Hub repository name (the part after ${DOCKERHUB_USERNAME}/); used for build and push.
   IMAGE_REPO: notification_service
-  # docker compose service name in compose files (pull/up); may differ from IMAGE_REPO.
+  # docker compose service name(s) in compose files (pull/up); may differ from IMAGE_REPO.
+  # One image can back several containers: list multiple names separated by commas (optional spaces).
+  # Example: auth_service or auth_api,auth_worker
   SERVICE_NAME: notification_service
   IMAGE_TAG: ${{ github.ref_name == 'main' && 'main' || 'dev' }}
   CACHE_SCOPE: ${{ github.ref_name }}
@@ -176,9 +178,13 @@ jobs:
               infisical run --projectId="$INFISICAL_PROJECT_ID" --env="$INFISICAL_ENV" --token="$INFISICAL_TOKEN" --domain=https://eu.infisical.com -- "$@"
             }
 
-            ic_run sh -c "docker compose -f $COMPOSE_FILE pull $SERVICE_NAME"
-            ic_run sh -c "docker compose -f $COMPOSE_FILE up -d $SERVICE_NAME"
-            echo "$SERVICE_NAME redeploy completed successfully"
+            # SERVICE_NAME: comma-separated list → space-separated args for docker compose
+            SERVICES=$(printf '%s' "$SERVICE_NAME" | tr ',' ' ' | xargs)
+            [ -n "$SERVICES" ] || { echo "SERVICE_NAME is empty"; exit 1; }
+
+            ic_run sh -c "docker compose -f $COMPOSE_FILE pull $SERVICES"
+            ic_run sh -c "docker compose -f $COMPOSE_FILE up -d $SERVICES"
+            echo "Redeploy completed successfully for: $SERVICES"
 
       - name: Redeploy ${{ env.SERVICE_NAME }} on staging/demo (Infisical)
         if: github.ref_name == 'dev'
@@ -214,7 +220,11 @@ jobs:
               infisical run --projectId="$INFISICAL_PROJECT_ID" --env="$INFISICAL_ENV" --token="$INFISICAL_TOKEN" --domain=https://eu.infisical.com -- "$@"
             }
 
-            ic_run sh -c "docker compose -f $COMPOSE_FILE pull $SERVICE_NAME"
-            ic_run sh -c "docker compose -f $COMPOSE_FILE up -d $SERVICE_NAME"
-            echo "$SERVICE_NAME redeploy completed successfully"
+            # SERVICE_NAME: comma-separated list → space-separated args for docker compose
+            SERVICES=$(printf '%s' "$SERVICE_NAME" | tr ',' ' ' | xargs)
+            [ -n "$SERVICES" ] || { echo "SERVICE_NAME is empty"; exit 1; }
+
+            ic_run sh -c "docker compose -f $COMPOSE_FILE pull $SERVICES"
+            ic_run sh -c "docker compose -f $COMPOSE_FILE up -d $SERVICES"
+            echo "Redeploy completed successfully for: $SERVICES"
 
