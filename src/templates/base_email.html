@@ -16,7 +16,7 @@
         .email-container {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            background: #f5f7fa;
+            background: #edf3fc;
             padding: 40px 20px;
             min-height: 100vh;
         }
@@ -26,15 +26,15 @@
             margin: 0 auto;
             background: #ffffff;
             border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(39, 49, 63, 0.12);
             overflow: hidden;
         }
 
         .header {
-            background: {% block header_bg_color %}#ffffff{% endblock %};
+            background: {% block header_bg_color %}#edf3fc{% endblock %};
             padding: 40px 30px;
             text-align: center;
-            color: #000000;
+            color: #27313f;
         }
 
         .logo-container {
@@ -68,14 +68,14 @@
         .title {
             font-size: 28px;
             font-weight: 600;
-            color: #000000;
+            color: #27313f;
             text-align: center;
             margin-bottom: 16px;
         }
 
         .description {
             font-size: 16px;
-            color: #666666;
+            color: #4e5a6b;
             text-align: center;
             margin-bottom: 40px;
             line-height: 1.5;
@@ -89,7 +89,7 @@
         /* Стиль для блока с кодом */
         .code-container {
             background: #ffffff;
-            border: 1px solid #e5e7eb;
+            border: 1px solid #d8e2f0;
             border-radius: 12px;
             padding: 30px 20px;
             text-align: center;
@@ -104,14 +104,14 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: #e5e7eb;
+            background: #1bf364;
             border-radius: 12px 12px 0 0;
         }
 
         .code-label {
             font-size: 14px;
             font-weight: 500;
-            color: #000000;
+            color: #27313f;
             margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -121,7 +121,7 @@
             font-size: 42px;
             font-weight: 600;
             font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-            color: #000000;
+            color: #27313f;
             letter-spacing: 8px;
             margin: 10px 0;
             user-select: all;
@@ -129,7 +129,7 @@
 
         .code-info {
             font-size: 14px;
-            color: #888888;
+            color: #5c6673;
             margin-top: 12px;
         }
 
@@ -149,8 +149,8 @@
         }
 
         .notice-box.info {
-            background: #e3f2fd;
-            border-color: #90caf9;
+            background: #edf3fc;
+            border-color: #1bf364;
         }
 
         .notice-box.success {
@@ -178,7 +178,7 @@
         }
 
         .notice-box.info .notice-text {
-            color: #1976d2;
+            color: #27313f;
         }
 
         .notice-box.success .notice-text {
@@ -191,7 +191,7 @@
 
         /* Стиль для информационного блока */
         .info-block {
-            background: #f3f4f6;
+            background: #edf3fc;
             border-radius: 8px;
             padding: 20px;
             margin: 30px 0;
@@ -200,13 +200,13 @@
         .info-block h3 {
             font-size: 16px;
             font-weight: 600;
-            color: #374151;
+            color: #27313f;
             margin-bottom: 8px;
         }
 
         .info-block p {
             font-size: 14px;
-            color: #6b7280;
+            color: #4e5a6b;
         }
 
         /* Стиль для кнопок */
@@ -218,9 +218,9 @@
         .button {
             display: inline-block;
             padding: 14px 32px;
-            background: {% block button_bg_color %}#ffffff{% endblock %};
-            border: 1px solid #e5e7eb;
-            color: #000000;
+            background: {% block button_bg_color %}#1bf364{% endblock %};
+            border: 1px solid #1bf364;
+            color: #27313f;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
@@ -229,28 +229,29 @@
         }
 
         .button:hover {
-            background: {% block button_hover_color %}#f3f4f6{% endblock %};
+            background: {% block button_hover_color %}#15d959{% endblock %};
+            border-color: #15d959;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(27, 243, 100, 0.35);
         }
 
         .button.secondary {
             background: #ffffff;
-            border: 2px solid #e5e7eb;
-            color: #374151;
+            border: 2px solid #27313f;
+            color: #27313f;
         }
 
         .button.secondary:hover {
-            background: #f9fafb;
-            border-color: #d1d5db;
+            background: #edf3fc;
+            border-color: #27313f;
         }
 
         /* Футер */
         .footer {
-            background: #f8f9fa;
+            background: #edf3fc;
             padding: 30px;
             text-align: center;
-            border-top: 1px solid #e9ecef;
+            border-top: 1px solid #d8e2f0;
         }
 
         .footer-links {
@@ -258,7 +259,7 @@
         }
 
         .footer-links a {
-            color: #000000;
+            color: #27313f;
             text-decoration: none;
             margin: 0 15px;
             font-size: 14px;
@@ -266,12 +267,13 @@
         }
 
         .footer-links a:hover {
+            color: #1bf364;
             text-decoration: underline;
         }
 
         .footer-info {
             font-size: 12px;
-            color: #9ca3af;
+            color: #5c6673;
             line-height: 1.5;
         }
 
@@ -281,7 +283,7 @@
 
         .divider {
             height: 1px;
-            background: #e5e7eb;
+            background: #d8e2f0;
             margin: 20px 0;
         }
 
