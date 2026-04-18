@@ -135,17 +135,81 @@ jobs:
   deploy:
     needs: merge
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/dev')
     steps:
-      - name: Deploy on server via SSH
+      - name: Redeploy notification_service on server via SSH (Infisical)
         uses: appleboy/ssh-action@v1.2.2
+        env:
+          INFISICAL_CLIENT_ID: ${{ secrets.INFISICAL_CLIENT_ID }}
+          INFISICAL_CLIENT_SECRET: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+          INFISICAL_PROJECT_ID: ${{ secrets.INFISICAL_PROJECT_ID }}
+          DEPLOY_BRANCH: ${{ github.ref_name }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ github.ref_name == 'main' && secrets.PROD_SERVER_HOST || secrets.SERVER_HOST }}
+          username: ${{ github.ref_name == 'main' && secrets.PROD_SERVER_USER || secrets.SERVER_USER }}
+          key: ${{ github.ref_name == 'main' && secrets.PROD_SERVER_SSH_KEY || secrets.SERVER_SSH_KEY }}
+          port: 22
+          timeout: 300s
+          command_timeout: 600s
+          envs: INFISICAL_CLIENT_ID,INFISICAL_CLIENT_SECRET,INFISICAL_PROJECT_ID,DEPLOY_BRANCH,DEPLOY_PATH
           script: |
-            set -x
-            docker pull ${{ env.IMAGE_NAME }}:main
-            cd /srv/autofolwark/deploy_conf
-            docker compose up -d --build
-            echo "Deployment complete"
+            set -e
+            if [ "$DEPLOY_BRANCH" = "main" ]; then
+              COMPOSE_FILE="prod/docker-compose.yml"
+              INFISICAL_ENV="prod"
+            else
+              COMPOSE_FILE="demo/docker-compose.demo.yml"
+              INFISICAL_ENV="staging"
+            fi
+            if ! command -v infisical >/dev/null 2>&1; then
+              if command -v apt-get >/dev/null 2>&1 && command -v sudo >/dev/null 2>&1; then
+                curl -1sLf 'https://artifacts-cli.infisical.com/setup.deb.sh' | sudo -E bash
+                sudo apt-get update
+                sudo apt-get install -y infisical
+              elif command -v apk >/dev/null 2>&1 && command -v sudo >/dev/null 2>&1; then
+                curl -fsSL 'https://artifacts-cli.infisical.com/setup.apk.sh' | sudo sh
+                sudo apk update && sudo apk add infisical
+              else
+                ARCH=$(uname -m)
+                case "$ARCH" in
+                  x86_64) CLI_ARCH=linux_amd64 ;;
+                  aarch64|arm64) CLI_ARCH=linux_arm64 ;;
+                  armv7l) CLI_ARCH=linux_armv7 ;;
+                  armv6l) CLI_ARCH=linux_armv6 ;;
+                  *) echo "Unsupported uname -m for Infisical CLI: $ARCH"; exit 1 ;;
+                esac
+                VERSION=$(curl -fsSL https://api.github.com/repos/Infisical/cli/releases/latest | grep -o '"tag_name": *"v[^"]*"' | head -1 | sed 's/.*"v\([^"]*\)".*/\1/')
+                TMP=$(mktemp -d)
+                trap 'rm -rf "$TMP"' EXIT
+                curl -fsSL "https://github.com/Infisical/cli/releases/download/v${VERSION}/cli_${VERSION}_${CLI_ARCH}.tar.gz" -o "$TMP/cli.tar.gz"
+                tar -xzf "$TMP/cli.tar.gz" -C "$TMP"
+                BIN=$(find "$TMP" -maxdepth 3 -name infisical -type f | head -1)
+                if [ -z "$BIN" ]; then
+                  echo "Infisical tarball did not contain an infisical binary"
+                  exit 1
+                fi
+                if command -v sudo >/dev/null 2>&1; then
+                  sudo install -m 0755 "$BIN" /usr/local/bin/infisical
+                else
+                  mkdir -p "$HOME/.local/bin"
+                  install -m 0755 "$BIN" "$HOME/.local/bin/infisical"
+                  export PATH="$HOME/.local/bin:$PATH"
+                fi
+              fi
+            fi
+            [ -n "${DEPLOY_PATH:-}" ] || { echo "DEPLOY_PATH is unset"; exit 1; }
+            cd "$DEPLOY_PATH" || exit 1
+            export INFISICAL_TOKEN=$(infisical login --method=universal-auth --client-id="$INFISICAL_CLIENT_ID" --client-secret="$INFISICAL_CLIENT_SECRET" --domain=https://eu.infisical.com --silent --plain)
+            if [ -z "$INFISICAL_TOKEN" ]; then
+              echo "Infisical login failed or returned empty token"
+              exit 2
+            fi
+
+            ic_run() {
+              infisical run --projectId="$INFISICAL_PROJECT_ID" --env="$INFISICAL_ENV" --token="$INFISICAL_TOKEN" --domain=https://eu.infisical.com -- "$@"
+            }
+
+            ic_run sh -c "docker compose -f $COMPOSE_FILE pull notification_service"
+            ic_run sh -c "docker compose -f $COMPOSE_FILE up -d notification_service"
+            echo "notification_service redeploy completed successfully"
