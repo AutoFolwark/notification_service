@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block email_title %}{{ company_name }}{% endblock %}</title>
+    <title>{% block email_title %}{{ company_name | upper }}{% endblock %}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
@@ -16,7 +16,7 @@
         .email-container {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            background: #f5f7fa;
+            background: #edf3fc;
             padding: 40px 20px;
             min-height: 100vh;
         }
@@ -31,10 +31,10 @@
         }
 
         .header {
-            background: {% block header_bg_color %}#ffffff{% endblock %};
+            background: {% block header_bg_color %}#27313f{% endblock %};
             padding: 40px 30px;
             text-align: center;
-            color: #000000;
+            color: #edf3fc;
         }
 
         .logo-container {
@@ -68,7 +68,7 @@
         .title {
             font-size: 28px;
             font-weight: 600;
-            color: #000000;
+            color: #27313f;
             text-align: center;
             margin-bottom: 16px;
         }
@@ -104,14 +104,14 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: #e5e7eb;
+            background: #1bf364;
             border-radius: 12px 12px 0 0;
         }
 
         .code-label {
             font-size: 14px;
             font-weight: 500;
-            color: #000000;
+            color: #27313f;
             margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -121,7 +121,7 @@
             font-size: 42px;
             font-weight: 600;
             font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-            color: #000000;
+            color: #27313f;
             letter-spacing: 8px;
             margin: 10px 0;
             user-select: all;
@@ -191,7 +191,7 @@
 
         /* Стиль для информационного блока */
         .info-block {
-            background: #f3f4f6;
+            background: #edf3fc;
             border-radius: 8px;
             padding: 20px;
             margin: 30px 0;
@@ -200,7 +200,7 @@
         .info-block h3 {
             font-size: 16px;
             font-weight: 600;
-            color: #374151;
+            color: #27313f;
             margin-bottom: 8px;
         }
 
@@ -218,9 +218,9 @@
         .button {
             display: inline-block;
             padding: 14px 32px;
-            background: {% block button_bg_color %}#ffffff{% endblock %};
-            border: 1px solid #e5e7eb;
-            color: #000000;
+            background: {% block button_bg_color %}#1bf364{% endblock %};
+            border: 1px solid #1bf364;
+            color: #27313f;
             text-decoration: none;
             border-radius: 8px;
             font-weight: 600;
@@ -229,15 +229,16 @@
         }
 
         .button:hover {
-            background: {% block button_hover_color %}#f3f4f6{% endblock %};
+            background: {% block button_hover_color %}#edf3fc{% endblock %};
+            border-color: #27313f;
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .button.secondary {
-            background: #ffffff;
-            border: 2px solid #e5e7eb;
-            color: #374151;
+            background: #edf3fc;
+            border: 2px solid #27313f;
+            color: #27313f;
         }
 
         .button.secondary:hover {
@@ -247,7 +248,7 @@
 
         /* Футер */
         .footer {
-            background: #f8f9fa;
+            background: #edf3fc;
             padding: 30px;
             text-align: center;
             border-top: 1px solid #e9ecef;
@@ -258,7 +259,7 @@
         }
 
         .footer-links a {
-            color: #000000;
+            color: #27313f;
             text-decoration: none;
             margin: 0 15px;
             font-size: 14px;
@@ -360,9 +361,9 @@
                 <div class="logo-container">
                     {% block logo %}
                         {% if logo_url %}
-                            <img src="{{ logo_url }}" alt="{{ company_name }} Logo" class="logo-image" />
+                            <img src="{{ logo_url }}" alt="{{ company_name | upper }} Logo" class="logo-image" />
                         {% else %}
-                            <div class="logo">{{ company_name | default('COMPANY') }}</div>
+                            <div class="logo">{{ company_name | default('COMPANY') | upper }}</div>
                         {% endif %}
                     {% endblock %}
                 </div>
@@ -407,7 +408,7 @@
 
                     <div class="footer-info">
                         {% block footer_info %}
-                            <p>&copy; {{ year | default('2024') }} {{ company_name | default('Company Name') }}. All rights reserved.</p>
+                            <p>&copy; {{ year | default('2024') }} {{ company_name | default('Company Name') | upper }}. All rights reserved.</p>
                             {% if user_uuid %}
                                 <p>User ID: {{ user_uuid }}</p>
                             {% endif %}

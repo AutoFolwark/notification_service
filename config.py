@@ -12,8 +12,8 @@ class Environment(str, Enum):
 class Settings(BaseSettings):
     # Application
     APP_NAME: str = 'notification-service'
-    COMPANY_NAME: str = 'AUTOFOLWARK'
-    COMPANY_LINK: str = 'https://demo.autofolwark.com'
+    COMPANY_NAME: str = 'BIDMAX'
+    COMPANY_LINK: str = 'https://demo.bidmax.eu'
     DEBUG: bool = True
     ROOT_PATH: str = ''
     ENVIRONMENT: Environment = Environment.DEVELOPMENT

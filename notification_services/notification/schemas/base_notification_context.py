@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class BaseNotificationContext(BaseModel):
-    company_name: str = settings.COMPANY_NAME
+    company_name: str = settings.COMPANY_NAME.upper()
     link: str = f'https://{settings.COMPANY_LINK}'
 
 class BaseNotification(BaseModel):
