@@ -1,6 +1,6 @@
 {% extends "base_email.html" %}
 
-{% block email_title %}Order #{{ order_id | default('—') }} status update · {{ company_name }}{% endblock %}
+{% block email_title %}Order #{{ order_id | default('—') }} status update · {{ company_name | upper }}{% endblock %}
 {% block header_subtitle %}Order progress update{% endblock %}
 
 {% block content_title %}Order status updated{% endblock %}
@@ -51,7 +51,7 @@
         border: 1px solid #e5e7eb;
         border-radius: 12px;
         padding: 16px 20px;
-        background: #f5f7fa;
+        background: #edf3fc;
         margin-bottom: 20px;
     }
 
@@ -73,15 +73,16 @@
         display: inline-block;
         padding: 6px 12px;
         border-radius: 999px;
-        background: #111827;
-        color: #ffffff;
+        background: #27313f;
+        color: #edf3fc;
         font-weight: 600;
         font-size: 13px;
     }
 
     .pill.muted {
-        background: #e5e7eb;
-        color: #374151;
+        background: #edf3fc;
+        color: #27313f;
+        border: 1px solid #27313f;
     }
 
     .arrow {
@@ -114,7 +115,7 @@
     .detail-value {
         font-size: 20px;
         font-weight: 600;
-        color: #111827;
+        color: #27313f;
         margin-bottom: 4px;
     }
 
