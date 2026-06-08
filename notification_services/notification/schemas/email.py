@@ -1,13 +1,19 @@
-from datetime import datetime
+from datetime import UTC, datetime
 
 from config import settings
 from notification_services.notification.schemas.base_notification_context import BaseNotificationContext, BaseNotification
+from pydantic import Field
+
+
+def _current_year() -> int:
+    return datetime.now(UTC).year
 
 
 class EmailContext(BaseNotificationContext):
     logo_url: str = settings.LOGO_URL
     user_uuid: str
     notification_uuid: str
+    year: int = Field(default_factory=_current_year)
 
 class EmailNotification(BaseNotification):
     subject: str
@@ -31,12 +37,10 @@ class EmailBidLostWonContext(EmailBidClass):
 class EmailCodeContext(EmailContext):
     code: str
     expire_minutes: int
-    year: int
 
 class EmailResetCodeContext(EmailContext):
     code: str
     expire_minutes: int
-    year: int
     user_email: str
 
 

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from typing import Any
-from datetime import datetime, UTC
 from database.models.notification import NotificationRoutingKey
 from notification_services.notification.schemas.base_notification_context import BaseNotificationContext
 from notification_services.notification.schemas.email import (
@@ -68,14 +67,12 @@ class EmailContextFactory(ContextFactory):
             NotificationRoutingKey.AUTH_SEND_CODE.value: lambda: EmailCodeContext(
                 code=payload.get("code"),
                 expire_minutes=payload.get("expire_minutes", 15),
-                year=datetime.now(UTC).year,
                 user_uuid=payload.get("user_uuid"),
                 notification_uuid=notification_uuid
             ),
             NotificationRoutingKey.AUTH_RESET_PASSWORD.value: lambda: EmailResetCodeContext(
                 code=payload.get("code"),
                 expire_minutes=payload.get("expire_minutes", 15),
-                year=datetime.now(UTC).year,
                 user_uuid=payload.get("user_uuid"),
                 user_email=payload.get("email"),
                 notification_uuid=notification_uuid

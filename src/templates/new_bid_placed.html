@@ -25,7 +25,7 @@
             <h2 class="vehicle-title">{{ vehicle_title | default('Vehicle title pending') }}</h2>
             <p class="auction-meta">
                 Auction: <strong>{{ auction | default('—') }}</strong><br />
-                Session starts: <strong>{{ auction_data | default('—') }}</strong>
+                Session starts: <strong>{{ auction_date.strftime('%d %b %Y %H:%M %Z') if auction_date else '—' }}</strong>
             </p>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <p class="stat-label">Current highest bid</p>
             <p class="stat-value">${{ current_bid | default(0) }}</p>
         </div>
-        <div class="stat-block highlight">
+        <div class="stat-block highlight-win">
             <p class="stat-label">Your latest bid</p>
             <p class="stat-value">${{ bid_amount | default(0) }}</p>
         </div>
@@ -58,113 +58,4 @@
             <li>Enable push or SMS alerts to stay notified in real time.</li>
         </ul>
     </div>
-{% endblock %}
-
-{% block custom_styles %}
-    .lot-preview-card {
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        display: flex;
-        gap: 20px;
-        padding: 20px;
-        align-items: center;
-        background: #f5f7fa;
-    }
-
-    .lot-image img {
-        border-radius: 10px;
-        max-width: 180px;
-        width: 100%;
-        height: auto;
-        display: block;
-    }
-
-    .lot-image__placeholder {
-        width: 180px;
-        height: 120px;
-        border-radius: 10px;
-        background: #e5e7eb;
-        color: #6b7280;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 14px;
-    }
-
-    .lot-details {
-        flex: 1;
-    }
-
-    .lot-id {
-        font-size: 14px;
-        color: #6b7280;
-        margin-bottom: 6px;
-    }
-
-    .vehicle-title {
-        font-size: 22px;
-        margin-bottom: 10px;
-        color: #111827;
-    }
-
-    .auction-meta {
-        font-size: 15px;
-        color: #4b5563;
-        line-height: 1.5;
-    }
-
-    .bid-stats {
-        display: flex;
-        gap: 16px;
-        margin: 30px 0;
-    }
-
-    .stat-block {
-        flex: 1;
-        border: 1px solid #e5e7eb;
-        border-radius: 12px;
-        padding: 20px;
-        text-align: center;
-        background: #ffffff;
-    }
-
-    .stat-block.highlight {
-        border-color: #111827;
-        background: #f3f4f6;
-    }
-
-    .stat-label {
-        font-size: 14px;
-        color: #6b7280;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 8px;
-    }
-
-    .stat-value {
-        font-size: 28px;
-        font-weight: 600;
-        color: #111827;
-    }
-
-    .next-steps {
-        margin-top: 12px;
-        padding-left: 18px;
-        color: #4b5563;
-    }
-
-    .next-steps li {
-        margin-bottom: 8px;
-        font-size: 14px;
-    }
-
-    @media (max-width: 600px) {
-        .lot-preview-card {
-            flex-direction: column;
-        }
-
-        .bid-stats {
-            flex-direction: column;
-        }
-    }
 {% endblock %}

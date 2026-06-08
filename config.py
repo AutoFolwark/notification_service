@@ -49,7 +49,7 @@ class Settings(BaseSettings):
     ADMINS_TG_ID: list[int] = [698453049]
     TELEGRAM_BOT_TOKEN: str = ""
 
-    LOGO_URL: str = 'https://i.imgur.com/QNuAY7v.png'
+    LOGO_URL: str = 'https://i.imgur.com/ybdcKJu.png'
 
     model_config = SettingsConfigDict(env_file=BASE_DIR / ".env", extra="ignore")
 
