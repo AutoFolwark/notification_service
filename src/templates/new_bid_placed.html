@@ -1,6 +1,6 @@
 {% extends "base_email.html" %}
 
-{% block email_title %}New bid for lot {{ lot_id }} · {{ company_name }}{% endblock %}
+{% block email_title %}New bid for lot {{ lot_id }} · {{ company_name | upper }}{% endblock %}
 
 {% block header_subtitle %}Live auction activity update{% endblock %}
 

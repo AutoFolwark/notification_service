@@ -1,6 +1,6 @@
 {% extends "base_email.html" %}
 
-{% block email_title %}You Won Lot #{{ lot_id | default('—') }} · {{ company_name }}{% endblock %}
+{% block email_title %}You Won Lot #{{ lot_id | default('—') }} · {{ company_name | upper }}{% endblock %}
 
 {% block header_subtitle %}Great news from the auction floor{% endblock %}
 
@@ -44,7 +44,7 @@
     <div class="notice-box success">
         <div class="icon">🎉</div>
         <div class="notice-text">
-            Thank you for choosing {{ company_name | default('our marketplace') }}. Check your dashboard for payment and shipping options.
+            Thank you for choosing {{ company_name | default('our marketplace') | upper }}. Check your dashboard for payment and shipping options.
         </div>
     </div>
 {% endblock %}

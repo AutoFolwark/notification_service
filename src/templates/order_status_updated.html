@@ -1,6 +1,6 @@
 {% extends "base_email.html" %}
 
-{% block email_title %}Order #{{ order_id | default('—') }} status update · {{ company_name }}{% endblock %}
+{% block email_title %}Order #{{ order_id | default('—') }} status update · {{ company_name | upper }}{% endblock %}
 {% block header_subtitle %}Order progress update{% endblock %}
 
 {% block content_title %}Order status updated{% endblock %}

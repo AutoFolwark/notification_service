@@ -1,6 +1,6 @@
 {% extends "base_email.html" %}
 
-{% block email_title %}Lot #{{ lot_id | default('—') }} Result · {{ company_name }}{% endblock %}
+{% block email_title %}Lot #{{ lot_id | default('—') }} Result · {{ company_name | upper }}{% endblock %}
 
 {% block header_subtitle %}Auction result update{% endblock %}
 

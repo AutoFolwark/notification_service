@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block email_title %}{{ company_name }}{% endblock %}</title>
+    <title>{% block email_title %}{{ company_name | upper }}{% endblock %}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
@@ -641,9 +641,9 @@
                             <div class="logo-container">
                                 {% block logo %}
                                     {% if logo_url %}
-                                        <img src="{{ logo_url }}" alt="{{ company_name }} Logo" class="logo-image" width="160" style="display: block; max-width: 160px; height: auto; margin: 0 auto;" />
+                                        <img src="{{ logo_url }}" alt="{{ company_name | upper }} Logo" class="logo-image" width="160" style="display: block; max-width: 160px; height: auto; margin: 0 auto;" />
                                     {% else %}
-                                        <div class="logo">{{ company_name | default('COMPANY') }}</div>
+                                        <div class="logo">{{ company_name | default('COMPANY') | upper }}</div>
                                     {% endif %}
                                 {% endblock %}
                             </div>
@@ -695,7 +695,7 @@
 
                     <div class="footer-info">
                         {% block footer_info %}
-                            <p>&copy; {{ year }} {{ company_name | default('Company Name') }}. All rights reserved.</p>
+                            <p>&copy; {{ year }} {{ company_name | default('Company Name') | upper }}. All rights reserved.</p>
                             {% if user_uuid %}
                                 <p>User ID: {{ user_uuid }}</p>
                             {% endif %}
