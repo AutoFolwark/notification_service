@@ -87,7 +87,7 @@ class TelegramTemplateConfig(TemplateConfig):
             "template": (
                 "New bid on lot #{lot_id}: ${bid_amount}.\n"
                 "Bid up: {is_bid_up}.\n"
-                "User: {user_name} | {user_email} | {user_phone}\n"
+                "User: {user_email}\n"
                 "Vehicle: {vehicle_title}\n"
                 "Auction: {auction}"
             ),
@@ -96,7 +96,7 @@ class TelegramTemplateConfig(TemplateConfig):
             "template": (
                 "Auction result: WON.\n"
                 "Lot #{lot_id} for ${bid_amount}.\n"
-                "Buyer: {user_name} | {user_email} | {user_phone}\n"
+                "Buyer: {user_email}\n"
                 "Vehicle: {vehicle_title}\n"
                 "Auction: {auction}"
             ),
@@ -105,7 +105,7 @@ class TelegramTemplateConfig(TemplateConfig):
             "template": (
                 "Auction result: LOST.\n"
                 "Lot #{lot_id}. Highest bid: ${bid_amount}.\n"
-                "User: {user_name} | {user_email} | {user_phone}\n"
+                "User: {user_email}\n"
                 "Vehicle: {vehicle_title}\n"
                 "Auction: {auction}"
             ),
@@ -117,7 +117,7 @@ class TelegramTemplateConfig(TemplateConfig):
                 "Vehicle: {vehicle_title}\n"
                 "Auction: {auction} | Lot #{lot_id}\n"
                 "Status: {previous_order_status} -> {new_order_status}\n"
-                "User: {user_name} | {user_email} | {user_phone}"
+                "User: {user_email}"
             ),
         },
     }

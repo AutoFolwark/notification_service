@@ -161,9 +161,7 @@ class TelegramContextFactory(ContextFactory):
                 is_bid_up=payload.get("is_bid_up"),
                 lot_id=payload.get("lot_id"),
                 bid_amount=payload.get("bid_amount"),
-                user_name=payload.get("user_name"),
-                user_email=payload.get("user_email"),
-                user_phone=payload.get("user_phone"),
+                user_email=payload.get("email"),
                 vehicle_title=payload.get("vehicle_title"),
                 auction=payload.get("auction"),
                 notification_uuid=notification_uuid,
@@ -178,9 +176,7 @@ class TelegramContextFactory(ContextFactory):
                 vehicle_title=payload.get("vehicle_title"),
                 auction=payload.get("auction"),
                 lot_id=payload.get("lot_id"),
-                user_name=payload.get("user_name"),
-                user_email=payload.get("user_email"),
-                user_phone=payload.get("user_phone"),
+                user_email=payload.get("email"),
                 notification_uuid=notification_uuid,
             )
 
