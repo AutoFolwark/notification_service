@@ -9,6 +9,9 @@ def _current_year() -> int:
     return datetime.now(UTC).year
 
 
+ORDER_STATUS_DEFAULT_LINK = f"{settings.COMPANY_LINK.rstrip('/')}/pl/profile/bids_won"
+
+
 class EmailContext(BaseNotificationContext):
     logo_url: str = settings.LOGO_URL
     user_uuid: str
@@ -52,6 +55,7 @@ class EmailOrderStatusContext(EmailContext):
     vehicle_title: str
     auction: str
     lot_id: int
+    link: str = ORDER_STATUS_DEFAULT_LINK
 
 
 class EmailPasswordResetContext(EmailContext):

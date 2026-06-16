@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Any
+
 from database.models.notification import NotificationRoutingKey
 from notification_services.notification.schemas.base_notification_context import BaseNotificationContext
 from notification_services.notification.schemas.email import (
@@ -9,6 +10,7 @@ from notification_services.notification.schemas.email import (
     EmailNewBidPlacedContext,
     EmailOrderStatusContext,
     EmailResetCodeContext,
+    ORDER_STATUS_DEFAULT_LINK,
 )
 from notification_services.notification.schemas.sms import (
             SMSBidResultContext,
@@ -59,6 +61,7 @@ class EmailContextFactory(ContextFactory):
                 vehicle_title=payload.get("vehicle_title"),
                 auction=payload.get("auction"),
                 lot_id=payload.get("lot_id"),
+                link=payload.get("link") or ORDER_STATUS_DEFAULT_LINK,
                 user_uuid=payload.get("user_uuid"),
                 notification_uuid=notification_uuid
             )
