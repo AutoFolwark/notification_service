@@ -39,8 +39,9 @@ class Settings(BaseSettings):
     TWILIO_AUTH_TOKEN: str = ''
     TWILIO_MESSAGING_SERVICE_SID: str = 'MG0a97155aaa7c29c8d756809d8c7a774d'
 
-    # Email
+    # Email (SES: EMAIL_USER is SMTP username AKIA..., SENDER_EMAIL is From header)
     SENDER_EMAIL: str = 'noreplay@autofolwark.com'
+    EMAIL_USER: str = ''
     SMPT_SERVER: str = 'smtp.hostinger.com'
     SMPT_PORT: int = 587
     EMAIL_PASSWORD: str = ''

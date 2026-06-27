@@ -35,7 +35,7 @@ async def send_templated_email(data:EmailNotification):
             hostname=settings.SMPT_SERVER,
             port=settings.SMPT_PORT,
             start_tls=True,
-            username=settings.SENDER_EMAIL,
+            username=settings.EMAIL_USER,
             password=settings.EMAIL_PASSWORD,
         )
         print("Email sent successfully")
